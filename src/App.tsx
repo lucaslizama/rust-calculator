@@ -54,6 +54,14 @@ function App() {
         return () => setOutput("0");
     }
 
+    function outputLenght() {
+        return output.length;
+    }
+
+    function outputLenghtSafe() {
+        return output.length - 1;
+    }
+
     return (
         <div className={main}>
             <div className={classes.output}>
