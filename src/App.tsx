@@ -3,15 +3,14 @@ import { useState } from "react";
 import classes from "./app.module.css";
 
 const { main, outputText, buttons, btnRow, calculatorBtn, calculatorBtnZero } = classes;
+const opSymbols = ["+", "-", "*", "/"];
 
 function App() {
     const [output, setOutput] = useState("0");
 
     async function handleEqualClick() {
         try {
-            console.log(output);
             const result: number = await invoke("calculate", { formula: output });
-            console.log(result);
             setOutput(result.toString());
         } catch (error) {
             setOutput("Invalid Formula!");
