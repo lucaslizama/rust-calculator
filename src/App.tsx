@@ -38,12 +38,20 @@ function App() {
 
     function handleSymbolClick(symbol: string) {
         return () => {
-            if (["/", "+", "-", "x"].includes(output[output.length - 1])) {
-                setOutput(`${output.substring(0, output.length - 1)} ${symbol}`);
+            if (symbol == "-" && output == "0") {
+                setOutput("-");
+                return;
+            }
+            if (opSymbols.includes(output[outputLenghtSafe()]) && output.length > 1) {
+                setOutput(`${output.substring(0, outputLenghtSafe())} ${symbol}`);
                 return;
             }
             setOutput(output == "Invalid Formula!" ? "" : `${output} ${symbol}`);
         };
+    }
+
+    function handleDotClick() {
+        
     }
 
     function handleParenthesisClick() {
