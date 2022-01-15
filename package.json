@@ -1,6 +1,17 @@
 {
-    "name": "tauri-hello-world",
-    "version": "0.0.0",
+    "name": "rust-calculator",
+    "description": "Simple calculator made in rust and html using tauri.",
+    "version": "0.1.0",
+    "author": {
+        "name": "Lucas Lizama",
+        "email": "lucaslizama4@gmail.com"
+    },
+    "contributors": [
+        {
+            "name": "Belén Fuentes Mejías",
+            "email": "bnfuentesm@gmail.com"
+        }
+    ],
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
