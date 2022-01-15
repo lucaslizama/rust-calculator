@@ -9,7 +9,9 @@ function App() {
 
     async function handleEqualClick() {
         try {
-            const result = (await invoke("calculator", { formula: output })) as number;
+            console.log(output);
+            const result: number = await invoke("calculate", { formula: output });
+            console.log(result);
             setOutput(result.toString());
         } catch (error) {
             setOutput("Invalid Formula!");
@@ -18,8 +20,8 @@ function App() {
 
     function handleDeleteLast() {
         return () => {
-            setOutput(output.length > 1 ? output.substring(0, output.length - 1) : "0")
-        }
+            setOutput(output.length > 1 ? output.substring(0, output.length - 1).trimEnd() : "0");
+        };
     }
 
     function handleNumberClick(number: string) {
@@ -29,17 +31,17 @@ function App() {
                 setOutput(number);
                 return;
             }
-            if (['/', '+', '-', 'x'].includes(output[output.length - 1])) {
-                setOutput(output == "Invalid Formula!" ? number : ` ${output}${number}`)
-                return
+            if (["/", "+", "-", "x"].includes(output[output.length - 1])) {
+                setOutput(output == "Invalid Formula!" ? number : `${output} ${number}`);
+                return;
             }
-            setOutput(output == "Invalid Formula!" ? number : `${output}${number}`)
+            setOutput(output == "Invalid Formula!" ? number : `${output}${number}`);
         };
     }
 
     function handleSymbolClick(symbol: string) {
         return () => {
-            if (['/', '+', '-', 'x'].includes(output[output.length - 1])) {
+            if (["/", "+", "-", "x"].includes(output[output.length - 1])) {
                 setOutput(`${output.substring(0, output.length - 1)} ${symbol}`);
                 return;
             }
@@ -62,28 +64,60 @@ function App() {
             </div>
             <div className={buttons}>
                 <div className={btnRow}>
-                    <button className={calculatorBtn} onClick={handleClearClick()}>AC</button>
-                    <button className={calculatorBtn} onClick={handleParenthesisClick}>()</button>
-                    <button className={calculatorBtn} onClick={handleDeleteLast()}>◁</button>
-                    <button className={calculatorBtn} onClick={handleSymbolClick("/")}>/</button>
+                    <button className={calculatorBtn} onClick={handleClearClick()}>
+                        AC
+                    </button>
+                    <button className={calculatorBtn} onClick={handleParenthesisClick}>
+                        ()
+                    </button>
+                    <button className={calculatorBtn} onClick={handleDeleteLast()}>
+                        ◁
+                    </button>
+                    <button className={calculatorBtn} onClick={handleSymbolClick("/")}>
+                        /
+                    </button>
                 </div>
                 <div className={btnRow}>
-                    <button className={calculatorBtn} onClick={handleNumberClick("1")}>1</button>
-                    <button className={calculatorBtn} onClick={handleNumberClick("2")}>2</button>
-                    <button className={calculatorBtn} onClick={handleNumberClick("3")}>3</button>
-                    <button className={calculatorBtn} onClick={handleSymbolClick("x")}>x</button>
+                    <button className={calculatorBtn} onClick={handleNumberClick("1")}>
+                        1
+                    </button>
+                    <button className={calculatorBtn} onClick={handleNumberClick("2")}>
+                        2
+                    </button>
+                    <button className={calculatorBtn} onClick={handleNumberClick("3")}>
+                        3
+                    </button>
+                    <button className={calculatorBtn} onClick={handleSymbolClick("x")}>
+                        x
+                    </button>
                 </div>
                 <div className={btnRow}>
-                    <button className={calculatorBtn} onClick={handleNumberClick("4")}>4</button>
-                    <button className={calculatorBtn} onClick={handleNumberClick("5")}>5</button>
-                    <button className={calculatorBtn} onClick={handleNumberClick("6")}>6</button>
-                    <button className={calculatorBtn} onClick={handleSymbolClick("-")}>-</button>
+                    <button className={calculatorBtn} onClick={handleNumberClick("4")}>
+                        4
+                    </button>
+                    <button className={calculatorBtn} onClick={handleNumberClick("5")}>
+                        5
+                    </button>
+                    <button className={calculatorBtn} onClick={handleNumberClick("6")}>
+                        6
+                    </button>
+                    <button className={calculatorBtn} onClick={handleSymbolClick("-")}>
+                        -
+                    </button>
                 </div>
                 <div className={btnRow}>
-                    <button className={calculatorBtn} onClick={handleNumberClick("7")}>7</button>
-                    <button className={calculatorBtn} onClick={handleNumberClick("8")}>8</button>
-                    <button className={calculatorBtn} onClick={handleNumberClick("9")}>9</button>
-                    <button className={calculatorBtn} onClick={handleSymbolClick("+")}>+</button>
+                    <button className={calculatorBtn} onClick={handleNumberClick("7")}>
+                        7
+                    </button>
+                    <button className={calculatorBtn} onClick={handleNumberClick("8")}>
+                        8
+                    </button>
+                    <button className={calculatorBtn} onClick={handleNumberClick("9")}>
+                        9
+                    </button>
+                    <button className={calculatorBtn} onClick={handleSymbolClick("+")}>
+                        +
+                    </button>
                 </div>
                 <div className={btnRow}>
                     <button className={calculatorBtnZero}>0</button>

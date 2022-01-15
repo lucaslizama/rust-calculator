@@ -50,8 +50,10 @@
 
 .calculator-btn {
     flex: 1;
+    font-size: 2.5rem;
 }
 
 .calculator-btn-zero {
     flex: 2.04;
+    font-size: 2.5rem;
 }
