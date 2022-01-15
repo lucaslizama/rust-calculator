@@ -7,23 +7,44 @@ const { main, outputText, buttons, btnRow, calculatorBtn, calculatorBtnZero } = 
 function App() {
     const [output, setOutput] = useState("0");
 
-    function handleEqualClick() {
-        return async () => {
-            try {
-                const result = (await invoke("calculator", { formula: output })) as number;
-                setOutput(result.toString());
-            } catch (error) {
-                setOutput("Invalid Fromula!");
-            }
-        };
+    async function handleEqualClick() {
+        try {
+            const result = (await invoke("calculator", { formula: output })) as number;
+            setOutput(result.toString());
+        } catch (error) {
+            setOutput("Invalid Formula!");
+        }
+    }
+
+    function handleDeleteLast() {
+        return () => {
+            setOutput(output.length > 1 ? output.substring(0, output.length - 1) : "0")
+        }
     }
 
     function handleNumberClick(number: string) {
-        return () => setOutput(output == "Invalid Formula!" ? number : `${output}${number}`);
+        return () => {
+            if (output == "0" && number == "0") return;
+            if (output == "0" && number != "0") {
+                setOutput(number);
+                return;
+            }
+            if (['/', '+', '-', 'x'].includes(output[output.length - 1])) {
+                setOutput(output == "Invalid Formula!" ? number : ` ${output}${number}`)
+                return
+            }
+            setOutput(output == "Invalid Formula!" ? number : `${output}${number}`)
+        };
     }
 
     function handleSymbolClick(symbol: string) {
-        return () => setOutput(output == "Invalid Formula!" ? "" : `${output} ${symbol}`);
+        return () => {
+            if (['/', '+', '-', 'x'].includes(output[output.length - 1])) {
+                setOutput(`${output.substring(0, output.length - 1)} ${symbol}`);
+                return;
+            }
+            setOutput(output == "Invalid Formula!" ? "" : `${output} ${symbol}`);
+        };
     }
 
     function handleParenthesisClick() {
@@ -31,7 +52,7 @@ function App() {
     }
 
     function handleClearClick() {
-        return () => setOutput("");
+        return () => setOutput("0");
     }
 
     return (
@@ -43,7 +64,7 @@ function App() {
                 <div className={btnRow}>
                     <button className={calculatorBtn} onClick={handleClearClick()}>AC</button>
                     <button className={calculatorBtn} onClick={handleParenthesisClick}>()</button>
-                    <button className={calculatorBtn} onClick={handleSymbolClick("%")}>%</button>
+                    <button className={calculatorBtn} onClick={handleDeleteLast()}>◁</button>
                     <button className={calculatorBtn} onClick={handleSymbolClick("/")}>/</button>
                 </div>
                 <div className={btnRow}>
