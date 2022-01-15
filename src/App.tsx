@@ -18,9 +18,7 @@ function App() {
     }
 
     function handleDeleteLast() {
-        return () => {
-            setOutput(output.length > 1 ? output.substring(0, output.length - 1).trimEnd() : "0");
-        };
+        return () => setOutput(output.length > 1 ? output.substring(0, output.length - 1).trimEnd() : "0");
     }
 
     function handleNumberClick(number: string) {
@@ -30,7 +28,7 @@ function App() {
                 setOutput(number);
                 return;
             }
-            if (["/", "+", "-", "x"].includes(output[output.length - 1])) {
+            if (opSymbols.includes(output[outputLenghtSafe()])) {
                 setOutput(output == "Invalid Formula!" ? number : `${output} ${number}`);
                 return;
             }
