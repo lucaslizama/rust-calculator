@@ -133,8 +133,8 @@ function App() {
                     </button>
                 </div>
                 <div className={btnRow}>
-                    <button className={calculatorBtnZero}>0</button>
-                    <button className={calculatorBtn}>.</button>
+                    <button className={calculatorBtnZero} onClick={handleNumberClick("0")}>0</button>
+                    <button className={calculatorBtn} onClick={handleDotClick}>.</button>
                     <button className={calculatorBtn} onClick={handleEqualClick}>
                         =
                     </button>
